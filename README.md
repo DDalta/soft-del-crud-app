@@ -21,7 +21,7 @@
 </p>
 
 <p align="center">
-  Now with soft deletion and logging for logging in/out, deleting records, and modifying records.
+  Now with soft deletion and versioning. Additional logging for logging in/out, deleting records, and modifying records.
 </p>
 
 ![crud-app](https://user-images.githubusercontent.com/48409548/94567114-8aa5ea80-0284-11eb-99f6-87401b099848.png)
