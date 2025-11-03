@@ -1,23 +1,33 @@
-import React from 'react';
+import React from "react";
 
 const History = ({ employees, logs, setIsViewingHistory }) => {
   const deletedEmployees = employees.filter(
-    employee => employee.status === 'DELETED'
+    (employee) => employee.status === "DELETED",
   );
 
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
+  const modifiedEmployees = employees
+    .filter((employee) => employee.history && employee.history.length > 0)
+    .flatMap((employee) => employee.history)
+    .sort((a, b) => new Date(b.modifiedAt) - new Date(a.modifiedAt));
+
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
     minimumFractionDigits: null,
   });
 
   return (
     <div className="container">
-      <div style={{ marginTop: '30px' }}>
-        <button onClick={() => setIsViewingHistory(false)} className="muted-button">Back to Dashboard</button>
+      <div style={{ marginTop: "30px" }}>
+        <button
+          onClick={() => setIsViewingHistory(false)}
+          className="muted-button"
+        >
+          Back to Dashboard
+        </button>
       </div>
 
-      <h2 style={{ marginTop: '30px' }}>Deleted Employees</h2>
+      <h2 style={{ marginTop: "30px" }}>Deleted Employees</h2>
       <div className="contain-table">
         <table className="striped-table">
           <thead>
@@ -51,7 +61,43 @@ const History = ({ employees, logs, setIsViewingHistory }) => {
         </table>
       </div>
 
-      <h2 style={{ marginTop: '30px' }}>Activity Log</h2>
+      <h2 style={{ marginTop: "30px" }}>Modified Employees</h2>
+      <div className="contain-table">
+        <table className="striped-table">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Salary</th>
+              <th>Date</th>
+              <th>Modified At</th>
+            </tr>
+          </thead>
+          <tbody>
+            {modifiedEmployees.length > 0 ? (
+              modifiedEmployees.map((employee, i) => (
+                <tr key={i}>
+                  <td>{i + 1}</td>
+                  <td>{employee.firstName}</td>
+                  <td>{employee.lastName}</td>
+                  <td>{employee.email}</td>
+                  <td>{formatter.format(employee.salary)}</td>
+                  <td>{employee.date}</td>
+                  <td>{new Date(employee.modifiedAt).toLocaleString()}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={7}>No Modified Employees</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      <h2 style={{ marginTop: "30px" }}>Activity Log</h2>
       <div className="contain-table">
         <table className="striped-table">
           <thead>
