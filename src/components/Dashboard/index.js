@@ -7,7 +7,7 @@ import Add from "./Add";
 import Edit from "./Edit";
 import History from "../History";
 
-import { employeesData, activityLogs } from "../../data/enhancedData";
+import { employeesData, activityLogs } from "../../data/data";
 
 const Dashboard = ({ setIsAuthenticated }) => {
   const [employees, setEmployees] = useState(employeesData);
